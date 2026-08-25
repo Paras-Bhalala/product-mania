@@ -77,9 +77,9 @@ const { currentUser, isAuthenticated } = storeToRefs(authStore)
 
 // --- Methods ---
 
-/** Handle logout: clear user state and redirect to home. */
+/** Handle logout: clear user state and redirect to login. */
 function handleLogout() {
   authStore.clearUser()
-  router.push('/')
+  router.push('/login')
 }
 </script>

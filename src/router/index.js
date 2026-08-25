@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/home-view.vue'
+import AboutView from '../views/about-view.vue'
+// import ProductDetail from '../views/product-detail-view.vue'
+// import ContactView from '../views/contact-view.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -7,14 +10,14 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'HomeView',
       component: HomeView,
     },
     {
       path: '/about',
-      name: 'about',
+      name: 'AboutView',
       // Lazy-loaded route per convention §16
-      component: () => import('../views/AboutView.vue'),
+      component: AboutView,
     },
     {
       path: '/login',
