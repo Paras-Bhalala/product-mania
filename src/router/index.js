@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home-view.vue'
 import AboutView from '../views/about-view.vue'
-// import ProductDetail from '../views/product-detail-view.vue'
+import ProductList from '../views/products/product-list.vue'
 // import ContactView from '../views/contact-view.vue'
+import DefaultLayout from '@/layouts/default-layout.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -10,26 +11,42 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'HomeView',
-      component: HomeView,
+      component: DefaultLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'HomeView',
+          component: HomeView,
+        },
+        {
+          path: 'about',
+          name: 'AboutView',
+          component: AboutView,
+        },
+        {
+          path: 'products',
+          name: 'ProductList',
+          component: ProductList,
+        },
+      ],
     },
     {
-      path: '/about',
-      name: 'AboutView',
-      // Lazy-loaded route per convention §16
-      component: AboutView,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      meta: { requiresAuth: false, guestOnly: true },
-      component: () => import('../views/login-view.vue'),
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      meta: { requiresAuth: false, guestOnly: true },
-      component: () => import('../views/signup-view.vue'),
+      path: '/',
+      component: DefaultLayout,
+      meta: { guestOnly: true },
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          component: () => import('../views/login-view.vue'),
+        },
+        {
+          path: 'signup',
+          name: 'signup',
+          component: () => import('../views/signup-view.vue'),
+        },
+      ],
     },
   ],
 })

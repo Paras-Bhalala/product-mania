@@ -1,8 +1,16 @@
 <template>
   <header class="bg-gray-900 text-gray-50 py-3">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 max-md:flex-col max-md:items-start">
+    <div
+      class="max-w-7xl mx-auto flex items-center justify-between px-4 max-md:flex-col max-md:items-start"
+    >
       <!-- Logo -->
-      <router-link to="/" class="text-2xl font-bold text-inherit no-underline">MyApp</router-link>
+      <router-link
+        to="/"
+        class="text-2xl font-bold text-inherit no-underline flex items-center gap-2"
+      >
+        <img :src="logoImg" alt="Product Mania logo" class="w-10 h-10" />
+        Product Mania
+      </router-link>
 
       <!-- Navigation -->
       <nav class="flex items-center gap-4 max-md:mt-2 max-md:flex-wrap max-md:gap-2">
@@ -11,22 +19,26 @@
           to="/"
           active-class="after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-blue-500"
           class="relative text-inherit no-underline text-[0.95rem]"
-        >Home</router-link>
+          >Home</router-link
+        >
         <router-link
           to="/about"
           active-class="after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-blue-500"
           class="relative text-inherit no-underline text-[0.95rem]"
-        >About</router-link>
+          >About</router-link
+        >
         <router-link
           to="/products"
           active-class="after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-blue-500"
           class="relative text-inherit no-underline text-[0.95rem]"
-        >Products</router-link>
+          >Products</router-link
+        >
         <router-link
           to="/contact"
           active-class="after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-blue-500"
           class="relative text-inherit no-underline text-[0.95rem]"
-        >Contact</router-link>
+          >Contact</router-link
+        >
 
         <!-- Divider -->
         <span class="hidden md:block w-px h-5 bg-gray-600" aria-hidden="true"></span>
@@ -50,11 +62,13 @@
           <router-link
             to="/login"
             class="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white no-underline transition-colors duration-200 hover:bg-indigo-500"
-          >Sign In</router-link>
+            >Sign In</router-link
+          >
           <router-link
             to="/signup"
             class="rounded-lg border border-gray-500 px-3 py-1.5 text-sm font-medium text-gray-200 no-underline transition-colors duration-200 hover:bg-gray-700"
-          >Sign Up</router-link>
+            >Sign Up</router-link
+          >
         </template>
       </nav>
     </div>
@@ -65,6 +79,7 @@
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
+import logoImg from '../../assets/favicon.png'
 
 // --- Router ---
 const router = useRouter()

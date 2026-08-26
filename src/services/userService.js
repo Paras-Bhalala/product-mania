@@ -22,6 +22,11 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL
 export async function fetchUserByEmail(email) {
   const response = await fetch(`${BASE_URL}/users?email=${encodeURIComponent(email)}`)
 
+  // MockAPI returns 404 when no users match the search — treat as "not found"
+  if (response.status === 404) {
+    return null
+  }
+
   if (!response.ok) {
     throw new Error('Failed to fetch user. Please try again.')
   }
