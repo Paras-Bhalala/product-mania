@@ -49,8 +49,10 @@
           </div>
 
           <!-- Submit button -->
-          <button type="submit"
-            class="w-full flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-white font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+          <button
+            type="submit"
+            class="w-full flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-white font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer"
+          >
             Sign In
           </button>
         </form>
@@ -58,7 +60,10 @@
         <!-- Link to sign-up -->
         <p class="mt-6 text-center text-sm text-gray-500">
           Don't have an account?
-          <router-link to="/signup" class="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors">
+          <router-link
+            to="/signup"
+            class="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors"
+          >
             Create one
           </router-link>
         </p>

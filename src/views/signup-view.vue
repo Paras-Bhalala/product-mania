@@ -99,7 +99,7 @@
           Already have an account?
           <router-link
             to="/login"
-            class="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors"
+            class="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors cursor-pointer"
           >
             Sign in
           </router-link>

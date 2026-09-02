@@ -3,7 +3,7 @@ import HomeView from '../views/home-view.vue'
 import AboutView from '../views/about-view.vue'
 import ProductList from '../views/products/product-list.vue'
 import ProductDetail from '../views/products/[...id].vue'
-// import ContactView from '../views/contact-view.vue'
+import ContactView from '../views/contact-view.vue'
 import DefaultLayout from '@/layouts/default-layout.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -34,6 +34,11 @@ const router = createRouter({
           path: 'products/:id',
           name: 'ProductDetail',
           component: ProductDetail,
+        },
+        {
+          path: 'contact',
+          name: 'ContactView',
+          component: ContactView,
         },
       ],
     },

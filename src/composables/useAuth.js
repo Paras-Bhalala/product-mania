@@ -7,7 +7,7 @@ export function useAuth() {
   async function login(email, password) {
     const user = await fetchUserByEmail(email)
     if (user && user.password === password) {
-      authStore.setUser()
+      authStore.setUser({ name: user.name, email: user.email })
       return true
     }
     return false

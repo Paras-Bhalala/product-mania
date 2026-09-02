@@ -2,6 +2,7 @@
   <section class="flex justify-center p-4">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
       <!-- Skeleton cards shown while loading -->
+      <!-- Skeleton cards shown while loading -->
       <template v-if="isLoading && products.length === 0">
         <div
           v-for="n in 10"
@@ -14,22 +15,14 @@
           <div class="w-1/4 h-4 bg-gray-300 mt-auto rounded"></div>
         </div>
       </template>
-      <div
+
+      <!-- Real product cards -->
+      <ProductCard
         v-if="!isLoading || products.length"
         v-for="product in products"
         :key="product.id"
-        class="flex flex-col border bg-white rounded-lg shadow-md p-2 hover:shadow-lg transition-all duration-300 cursor-pointer"
-        @click="productdetail(product)"
-      >
-        <img
-          :src="product.thumbnail"
-          :alt="product.title"
-          class="w-full h-48 object-contain mb-4 rounded-lg"
-        />
-        <h3 class="text-xl font-bold mb-2 line-clamp-1">{{ product.title }}</h3>
-        <p class="text-gray-600 mb-4 line-clamp-2 flex-1">{{ product.description }}</p>
-        <p class="text-green-600 font-bold mt-auto">${{ product.price }}</p>
-      </div>
+        :product="product"
+      />
     </div>
 
     <!-- sentinel – triggers loading next page when it appears near the bottom -->
@@ -40,6 +33,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import ProductCard from '@/components/ProductCard.vue'
 
 const products = ref([])
 const router = useRouter()
@@ -103,8 +97,4 @@ onBeforeUnmount(() => {
   if (observer) observer.disconnect()
 })
 
-// ----- Navigation to detail page (optional) -----
-function productdetail(product) {
-  router.push({ name: 'ProductDetail', params: { id: product.id } })
-}
 </script>
