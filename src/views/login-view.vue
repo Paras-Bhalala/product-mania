@@ -9,20 +9,11 @@
 
         <!-- Error alert -->
         <div
-          v-if="hasError"
-          role="alert"
-          class="mb-6 flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700"
+          v-if="errorMsg"
+          class="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700"
         >
-          <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path
-              fill-rule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          <span>{{ errorMessage }}</span>
+          {{ errorMsg }}
         </div>
-
         <!-- Form -->
         <form @submit.prevent="handleLogin" class="space-y-5">
           <!-- Email field -->
@@ -58,23 +49,9 @@
           </div>
 
           <!-- Submit button -->
-          <button
-            type="submit"
-            :disabled="isLoading"
-            class="w-full flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-white font-semibold transition-colors duration-200 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            <!-- Loading spinner -->
-            <svg
-              v-if="isLoading"
-              class="h-5 w-5 animate-spin"
-              fill="none"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-            </svg>
-            {{ isLoading ? 'Signing in…' : 'Sign In' }}
+          <button type="submit"
+            class="w-full flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-white font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+            Sign In
           </button>
         </form>
 
@@ -99,17 +76,18 @@ import { useAuth } from '@/composables/useAuth'
 const router = useRouter()
 
 // --- Composable ---
-const { isLoading, hasError, errorMessage, login, clearError } = useAuth()
+const { login } = useAuth()
 
 // --- Local form state ---
 const email = ref('')
 const password = ref('')
+const errorMsg = ref('')
 
 // --- Methods ---
 
 /** Handle form submission for login. */
 async function handleLogin() {
-  clearError()
+  errorMsg.value = ''
 
   // Basic client-side validation
   if (!email.value || !password.value) {
@@ -123,6 +101,8 @@ async function handleLogin() {
     email.value = ''
     password.value = ''
     router.push('/')
+  } else {
+    errorMsg.value = 'Invalid email or password. Please try again.'
   }
 }
 </script>

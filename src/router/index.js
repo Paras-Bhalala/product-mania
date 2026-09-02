@@ -65,14 +65,9 @@ const router = createRouter({
 router.beforeEach((to) => {
   const authStore = useAuthStore()
 
-  // Rehydrate from localStorage on first navigation
-  if (!authStore.currentUser) {
-    authStore.loadFromStorage()
-  }
-
   // If route is guest-only and user is already logged in, redirect to home
   if (to.meta.guestOnly && authStore.isAuthenticated) {
-    return { name: 'home' }
+    return { name: 'HomeView' }
   }
 
   // If route requires auth and user is not logged in, redirect to login

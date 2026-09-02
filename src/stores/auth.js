@@ -1,56 +1,25 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
-/**
- * Auth Store
- *
- * Holds the authenticated user state shared across components.
- * Uses setup-syntax store per convention §14.
- */
+const AUTH_KEY = 'auth_token'
+
 export const useAuthStore = defineStore('auth', () => {
-  // --- State ---
-  const currentUser = ref(null)
+  // Reactive ref — initialised from localStorage so it survives page refreshes
+  const _token = ref(localStorage.getItem(AUTH_KEY) ?? null)
 
-  // --- Getters ---
-  const isAuthenticated = computed(() => currentUser.value !== null)
+  const isAuthenticated = computed(() => !!_token.value)
 
-  // --- Actions ---
-
-  /**
-   * Set the authenticated user and persist to localStorage.
-   *
-   * @param {import('@/services/userService').User} user
-   */
-  function setUser(user) {
-    currentUser.value = user
-    localStorage.setItem('auth_user', JSON.stringify(user))
+  // Persist a token so the session survives a page refresh
+  function setUser() {
+    localStorage.setItem(AUTH_KEY, '1')
+    _token.value = '1'
   }
 
-  /** Clear the authenticated user from state and localStorage. */
+  // Remove the token on logout
   function clearUser() {
-    currentUser.value = null
-    localStorage.removeItem('auth_user')
+    localStorage.removeItem(AUTH_KEY)
+    _token.value = null
   }
 
-  /** Rehydrate user state from localStorage on app startup. */
-  function loadFromStorage() {
-    const stored = localStorage.getItem('auth_user')
-
-    if (stored) {
-      try {
-        currentUser.value = JSON.parse(stored)
-      } catch {
-        // Corrupted data — clear it
-        localStorage.removeItem('auth_user')
-      }
-    }
-  }
-
-  return {
-    currentUser,
-    isAuthenticated,
-    setUser,
-    clearUser,
-    loadFromStorage,
-  }
+  return { isAuthenticated, setUser, clearUser }
 })
